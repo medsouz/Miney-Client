@@ -19,7 +19,6 @@ public class MineyClient implements MineyClientInterface{
 	public void init() {
 		instance = this;
 		KeyBindingRegistry.registerKeyBinding(new OverlayListener(overlayKey, new boolean[] {false}));
-		System.out.println("Registered binding");
 	}
 
 }

@@ -2,6 +2,8 @@ package net.medsouz.miney.client.listeners;
 
 import java.util.EnumSet;
 
+import net.medsouz.miney.client.gui.GuiScreenMineyOverlay;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
 import cpw.mods.fml.common.TickType;
@@ -20,7 +22,10 @@ public class OverlayListener extends KeyHandler{
 	@Override
 	public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
 		if(tickEnd){
-			System.out.println("Down");
+			//TODO: Bring up overlay GUI
+			if(!(Minecraft.getMinecraft().currentScreen instanceof GuiScreenMineyOverlay)){
+				Minecraft.getMinecraft().displayGuiScreen(new GuiScreenMineyOverlay(Minecraft.getMinecraft().currentScreen));
+			}
 		}
 	}
 
