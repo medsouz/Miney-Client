@@ -7,6 +7,9 @@ import net.minecraft.client.renderer.Tessellator;
 
 public class GuiScreenMineyOverlay extends GuiScreen{
 	
+	private boolean isScrolling = true;
+	private int scroll = 0;
+	
 	public GuiScreen parent;
 	
 	public GuiScreenMineyOverlay(GuiScreen par){
@@ -19,8 +22,15 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 		}
 		//TODO: Nice gradient fade and background sliding in when menu is first open
 		drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
-		drawOverlayBackground(200);
-		drawCenteredString(this.fontRenderer, "Miney", 100, 15, 16777215);
+		drawOverlayBackground(scroll);
+		if(isScrolling){
+			scroll += 2;//TODO: apply delta to smooth on computers with inconsistent framerates
+			if(scroll == 200){
+				isScrolling = false;
+			}
+		}else{
+			drawCenteredString(this.fontRenderer, "Miney", 100, 15, 16777215);
+		}
 	}
 	
 	public void drawOverlayBackground(int width){
