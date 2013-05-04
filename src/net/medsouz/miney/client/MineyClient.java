@@ -13,6 +13,8 @@ import net.minecraft.client.settings.KeyBinding;
 public class MineyClient implements MineyClientInterface{
 
 	public static MineyClient instance;
+
+	public static String version = "v0.1";
 	
 	public KeyBinding[] overlayKey = {new KeyBinding("Miney Overlay", Keyboard.KEY_P)};
 	
