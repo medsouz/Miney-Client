@@ -9,14 +9,13 @@ public class Packet0PlayerLogin extends Packet{
 
 	public String username;
 	public String sessionID;
+	public String token;
 	
-	@Override
-	public int getID() {
+	public static int getID() {
 		return 0;
 	}
 
-	@Override
-	public String getName() {
+	public static String getName() {
 		return "Player Login";
 	}
 
@@ -27,6 +26,7 @@ public class Packet0PlayerLogin extends Packet{
 		try{
 			dos.writeUTF(username);
 			dos.writeUTF(sessionID);
+			dos.writeUTF(token);
 			dos.close();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -40,8 +40,9 @@ public class Packet0PlayerLogin extends Packet{
 			ByteArrayInputStream bais = new ByteArrayInputStream(data);
 			DataInputStream dis = new DataInputStream(bais);
 			String[] loginData = new String[2];
-			loginData[0] = dis.readUTF();
-			loginData[1] = dis.readUTF();
+			loginData[0] = dis.readUTF();//username
+			loginData[1] = dis.readUTF();//sessionid
+			loginData[2] = dis.readUTF();//token
 			dis.close();
 			return loginData;
 		}catch(Exception err){

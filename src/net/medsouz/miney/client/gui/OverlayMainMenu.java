@@ -25,5 +25,17 @@ public class OverlayMainMenu extends OverlayState{
 		settings.yPosition = overlay.height - 30 - scroll;
 		settings.drawButton(Minecraft.getMinecraft(), mouseX, mouseY);
 	}
+
+	@Override
+	public void onMouseClick(int par1, int par2, int par3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(GuiButton button) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

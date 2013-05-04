@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import net.medsouz.miney.client.MineyClient;
 import net.medsouz.miney.common.packet.Packet0PlayerLogin;
 import net.medsouz.miney.common.packet.PacketManager;
 import net.minecraft.client.Minecraft;
@@ -16,6 +17,7 @@ public class MineyConnection implements Runnable{
 	public Socket socket;
 	public DataInputStream in;
 	public DataOutputStream out;
+	public boolean isLoggedIn = false;
 	
 	@Override
 	public void run() {
@@ -30,11 +32,20 @@ public class MineyConnection implements Runnable{
 			PacketManager.sendPacket(p0, out);
 			int packetId;
 			while((packetId = in.readInt()) != -1){
-				System.out.println("Reading packet id "+packetId);
 				int len = in.readInt();
 				byte[] data = new byte[len];
 				in.read(data, 0, len);
-				System.out.println("Packet length: "+data.length);
+				if(packetId == Packet0PlayerLogin.getID()){
+					String[] login = (String[]) PacketManager.readPacket(packetId, data);
+					if(login[0].equals(Minecraft.getMinecraft().session.username)){
+						//if server responds with the same name then the connection was successful
+						isLoggedIn = true;
+						//TODO: server should respond with a new token that can be used instead of a sessionid incase Minecraft.net goes down
+					}else{
+						System.out.println("Login failed");
+						break;
+					}
+				}
 			}
 			in.close();
 			out.close();
@@ -47,10 +58,14 @@ public class MineyConnection implements Runnable{
 				}catch(Exception er){
 					er.printStackTrace();
 				}
+			}else{
+				e.printStackTrace();
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		System.out.println("Connection lost");
+		MineyClient.connection = null;
 	}
 
 }

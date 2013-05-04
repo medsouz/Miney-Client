@@ -13,7 +13,7 @@ import net.minecraft.client.settings.KeyBinding;
 public class MineyClient implements MineyClientInterface{
 
 	public static MineyClient instance;
-
+	public static MineyConnection connection;
 	public static String version = "v0.1";
 	
 	public KeyBinding[] overlayKey = {new KeyBinding("Miney Overlay", Keyboard.KEY_P)};
@@ -22,9 +22,17 @@ public class MineyClient implements MineyClientInterface{
 	public void init() {
 		instance = this;
 		KeyBindingRegistry.registerKeyBinding(new OverlayListener(overlayKey, new boolean[] {false}));
-		MineyConnection mcon = new MineyConnection();
-		Thread t = new Thread(mcon);
+		connection = new MineyConnection();
+		Thread t = new Thread(connection);
 		t.start();
+	}
+	
+	public static boolean isLoggedIn(){
+		if(connection != null){
+			return connection.isLoggedIn;
+		}else{
+			return false;
+		}
 	}
 
 }

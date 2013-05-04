@@ -1,5 +1,7 @@
 package net.medsouz.miney.client.gui;
 
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 
 import net.medsouz.miney.client.MineyClient;
@@ -11,12 +13,20 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 	
 	private boolean isScrolling = true;
 	private int scroll = -100;
-	public OverlayState currentState = new OverlayMainMenu(this);
+	private OverlayState currentState;
 	
 	public GuiScreen parent;
 	
 	public GuiScreenMineyOverlay(GuiScreen par){
 		parent = par;
+	}
+	
+	public void initGui() {
+		if(MineyClient.isLoggedIn()){
+			currentState = new OverlayMainMenu(this);
+		}else{
+			currentState = new OverlayLoggedOut(this);
+		}
 	}
 	
 	public void drawScreen(int par1, int par2, float par3){
@@ -34,6 +44,7 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 		}
 		drawCenteredString(this.fontRenderer, "Miney, The Social Networking Mod by medsouz | Version "+MineyClient.version, width /2, height - 97 - scroll, 16777215);
 		currentState.drawOverlay(par1, par2, scroll);
+		super.drawScreen(par1, par2, par3);
 	}
 	
 	public void drawOverlayBackground(int scroll){
@@ -59,12 +70,33 @@ public class GuiScreenMineyOverlay extends GuiScreen{
         tessellator.draw();
 	}
 	
+	public void addToButtonList(GuiButton b){
+		buttonList.add(b);
+	}
+	
+	public List<GuiButton> getButtonList(){
+		return buttonList;
+	}
+	
 	public void setOverlay(OverlayState o){
 		buttonList.clear();
 		currentState = o;
 	}
 	
-	public void registerButton(GuiButton b){
-		buttonList.add(b);
+	protected void mouseClicked(int par1, int par2, int par3){
+		super.mouseClicked(par1, par2, par3);
+		if(currentState != null){
+			currentState.onMouseClick(par1, par2, par3);
+		}
+	}
+	
+	protected void actionPerformed(GuiButton par1GuiButton) {
+		if(currentState != null){
+			if(!MineyClient.isLoggedIn() && !(currentState instanceof OverlayLoggedOut)){
+				setOverlay(new OverlayLoggedOut(this));//if you try to perform an action while logged out (due to connection loss or something) it will boot you to the login screen
+				return;
+			}
+			currentState.actionPerformed(par1GuiButton);
+		}
 	}
 }

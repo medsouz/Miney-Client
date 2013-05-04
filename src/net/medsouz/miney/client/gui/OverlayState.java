@@ -1,5 +1,7 @@
 package net.medsouz.miney.client.gui;
 
+import net.minecraft.client.gui.GuiButton;
+
 public abstract class OverlayState {
 	
 	public GuiScreenMineyOverlay overlay;
@@ -9,4 +11,8 @@ public abstract class OverlayState {
 	}
 	
 	public abstract void drawOverlay(int mouseX, int mouseY, int scroll);
+	
+	public abstract void onMouseClick(int par1, int par2, int par3);
+	
+	public abstract void actionPerformed(GuiButton button);
 }
