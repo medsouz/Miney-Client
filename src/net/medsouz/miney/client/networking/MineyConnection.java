@@ -14,10 +14,11 @@ import net.minecraft.client.Minecraft;
 
 public class MineyConnection implements Runnable{
 
-	public Socket socket;
-	public DataInputStream in;
-	public DataOutputStream out;
-	public boolean isLoggedIn = false;
+	private Socket socket;
+	private DataInputStream in;
+	private DataOutputStream out;
+	private boolean isLoggedIn = false;
+	private static String reason = "";
 	
 	@Override
 	public void run() {
@@ -30,26 +31,23 @@ public class MineyConnection implements Runnable{
 			p0.username = Minecraft.getMinecraft().session.username;
 			p0.sessionID = Minecraft.getMinecraft().session.sessionId;
 			PacketManager.sendPacket(p0, out);
+			isLoggedIn = true;
 			int packetId;
 			while((packetId = in.readInt()) != -1){
 				int len = in.readInt();
 				byte[] data = new byte[len];
 				in.read(data, 0, len);
-				if(packetId == Packet0PlayerLogin.getID()){
-					String[] login = (String[]) PacketManager.readPacket(packetId, data);
-					if(login[0].equals(Minecraft.getMinecraft().session.username)){
-						//if server responds with the same name then the connection was successful
-						isLoggedIn = true;
-						//TODO: server should respond with a new token that can be used instead of a sessionid incase Minecraft.net goes down
-					}else{
-						System.out.println("Login failed");
-						break;
-					}
+				if(packetId == 1){
+					String msg = (String)PacketManager.readPacket(packetId, data);
+					System.out.println("Disconnected with message: "+msg);
+					setReason(msg);
+					break;
 				}
 			}
 			in.close();
 			out.close();
 		} catch (SocketException e) {
+			setReason("Connection Lost");
 			if(e.getMessage().equals("Connection reset")){
 				try{
 					System.out.println("Connection reset, closing streams");
@@ -67,5 +65,16 @@ public class MineyConnection implements Runnable{
 		System.out.println("Connection lost");
 		MineyClient.connection = null;
 	}
+	
+	public static String getReason(){
+		return reason;
+	}
 
+	public static void setReason(String r){
+		reason = r;
+	}
+	
+	public boolean isLoggedIn(){
+		return isLoggedIn;
+	}
 }

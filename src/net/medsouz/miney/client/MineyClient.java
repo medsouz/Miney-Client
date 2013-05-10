@@ -7,6 +7,7 @@ import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import net.medsouz.miney.MineyClientInterface;
 import net.medsouz.miney.client.listeners.OverlayListener;
 import net.medsouz.miney.client.networking.MineyConnection;
+import net.medsouz.miney.common.packet.PacketManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 
@@ -22,6 +23,7 @@ public class MineyClient implements MineyClientInterface{
 	public void init() {
 		instance = this;
 		KeyBindingRegistry.registerKeyBinding(new OverlayListener(overlayKey, new boolean[] {false}));
+		PacketManager.registerPackets();
 		connection = new MineyConnection();
 		Thread t = new Thread(connection);
 		t.start();
@@ -29,7 +31,7 @@ public class MineyClient implements MineyClientInterface{
 	
 	public static boolean isLoggedIn(){
 		if(connection != null){
-			return connection.isLoggedIn;
+			return connection.isLoggedIn();
 		}else{
 			return false;
 		}

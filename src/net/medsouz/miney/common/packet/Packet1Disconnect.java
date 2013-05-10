@@ -5,28 +5,24 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
-public class Packet0PlayerLogin extends Packet{
+public class Packet1Disconnect extends Packet{
 
-	public String username = "";
-	public String sessionID = "";
-	public String token = "";
+	public String message;
 	
 	public int getID() {
-		return 0;
+		return 1;
 	}
 
 	public String getName() {
-		return "Player Login";
+		return "Disconnect";
 	}
-
+	
 	@Override
 	public byte[] getData() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 		try{
-			dos.writeUTF(username);
-			dos.writeUTF(sessionID);
-			dos.writeUTF(token);
+			dos.writeUTF(message);
 			dos.close();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -39,16 +35,12 @@ public class Packet0PlayerLogin extends Packet{
 		try{
 			ByteArrayInputStream bais = new ByteArrayInputStream(data);
 			DataInputStream dis = new DataInputStream(bais);
-			String[] loginData = new String[3];
-			loginData[0] = dis.readUTF();//username
-			loginData[1] = dis.readUTF();//sessionid
-			loginData[2] = dis.readUTF();//token
+			String msg = dis.readUTF();
 			dis.close();
-			return loginData;
+			return msg;
 		}catch(Exception err){
 			err.printStackTrace();
 		}
 		return null;
 	}
-
 }

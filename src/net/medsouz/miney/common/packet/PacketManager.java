@@ -13,6 +13,7 @@ public class PacketManager {
 	
 	public static void registerPackets() {
 		packets.add(Packet0PlayerLogin.class);
+		packets.add(Packet1Disconnect.class);
 	}
 	
 	public static void sendPacket(Packet p, DataOutputStream out) {

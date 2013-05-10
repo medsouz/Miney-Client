@@ -32,8 +32,9 @@ public class OverlayLoggedOut extends OverlayState {
 	public void drawOverlay(int mouseX, int mouseY, int scroll) {
 		if(MineyClient.isLoggedIn()){
 			overlay.setOverlay(new OverlayMainMenu(overlay));
+			return;
 		}
-		overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "You are not connected to Miney!", overlay.width / 2, overlay.height - 50 - 30 - scroll, 16777215);
+		overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "You are not connected to Miney! Reason: \u00A7c"+MineyConnection.getReason(), overlay.width / 2, overlay.height - 50 - 30 - scroll, 16777215);
 		overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "You can try to reconnect as \u00A7e"+Minecraft.getMinecraft().session.username+"\u00A7f by clicking login.", overlay.width / 2, overlay.height - 50 - 20 - scroll, 16777215);
 		overlay.getButtonList().get(0).xPosition = overlay.width / 2 - 100;
 		overlay.getButtonList().get(0).yPosition = overlay.height - 50 - 10 - scroll;
@@ -70,7 +71,7 @@ public class OverlayLoggedOut extends OverlayState {
 		if (button.id == 2) {
 			if (supportsURLs) {
 				try {
-					Desktop.getDesktop().browse(new URI("http://google.com/"));
+					Desktop.getDesktop().browse(new URI(""));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
