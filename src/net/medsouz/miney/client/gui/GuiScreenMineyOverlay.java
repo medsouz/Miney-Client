@@ -30,7 +30,10 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 		}
 	}
 	
+	private long lastFrame = System.currentTimeMillis();
+	
 	public void drawScreen(int par1, int par2, float par3){
+		long currentTime = System.currentTimeMillis();
 		if(currentState != null){
 			if(!MineyClient.isLoggedIn() && !(currentState instanceof OverlayLoggedOut)){
 				setOverlay(new OverlayLoggedOut(this));
@@ -43,8 +46,9 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 		drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
 		drawOverlayBackground(scroll);
 		if(isScrolling){
-			scroll += 2;//TODO: apply delta to smooth on computers with inconsistent framerates
-			if(scroll == 0){
+			scroll += 0.3 * (currentTime - lastFrame);
+			if(scroll > 0){
+				scroll = 0;
 				isScrolling = false;
 			}
 		}
@@ -56,6 +60,7 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 		}
 		currentState.drawOverlay(par1, par2, scroll);
 		super.drawScreen(par1, par2, par3);
+		lastFrame = currentTime;
 	}
 	
 	public void drawOverlayBackground(int scroll){
