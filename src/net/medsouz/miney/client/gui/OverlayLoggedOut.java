@@ -17,6 +17,10 @@ public class OverlayLoggedOut extends OverlayState {
 	
 	public OverlayLoggedOut(GuiScreenMineyOverlay o) {
 		super(o);
+	}
+	
+	@Override
+	public void init(){
 		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 		if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
 			supportsURLs = true;

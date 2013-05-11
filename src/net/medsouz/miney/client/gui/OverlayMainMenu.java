@@ -14,16 +14,23 @@ public class OverlayMainMenu extends OverlayState{
 	}
 
 	@Override
+	public void init() {
+		overlay.addToButtonList(friends);
+		overlay.addToButtonList(messages);
+		overlay.addToButtonList(settings);
+	}
+
+	@Override
 	public void drawOverlay(int mouseX, int mouseY, int scroll) {
-		friends.xPosition = (overlay.width - 400) / 2 + 10;
-		friends.yPosition = overlay.height - 80 - scroll;
-		friends.drawButton(Minecraft.getMinecraft(), mouseX, mouseY);
-		messages.xPosition = (overlay.width - 400) / 2 + 10;
-		messages.yPosition = overlay.height - 55 - scroll;
-		messages.drawButton(Minecraft.getMinecraft(), mouseX, mouseY);
-		settings.xPosition = (overlay.width - 400) / 2 + 10;
-		settings.yPosition = overlay.height - 30 - scroll;
-		settings.drawButton(Minecraft.getMinecraft(), mouseX, mouseY);
+		if(overlay.getButtonList().size() < 3){
+			return;
+		}
+		overlay.getButtonList().get(0).xPosition = (overlay.width - 400) / 2 + 10;
+		overlay.getButtonList().get(0).yPosition = overlay.height - 80 - scroll;
+		overlay.getButtonList().get(1).xPosition = (overlay.width - 400) / 2 + 10;
+		overlay.getButtonList().get(1).yPosition = overlay.height - 55 - scroll;
+		overlay.getButtonList().get(2).xPosition = (overlay.width - 400) / 2 + 10;
+		overlay.getButtonList().get(2).yPosition = overlay.height - 30 - scroll;
 	}
 
 	@Override

@@ -4,14 +4,13 @@ import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 
-import net.medsouz.miney.MineyClientInterface;
 import net.medsouz.miney.client.listeners.OverlayListener;
 import net.medsouz.miney.client.networking.MineyConnection;
 import net.medsouz.miney.common.packet.PacketManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 
-public class MineyClient implements MineyClientInterface{
+public class MineyClient{
 
 	public static MineyClient instance;
 	public static MineyConnection connection;
@@ -19,7 +18,6 @@ public class MineyClient implements MineyClientInterface{
 	
 	public KeyBinding[] overlayKey = {new KeyBinding("Miney Overlay", Keyboard.KEY_P)};
 	
-	@Override
 	public void init() {
 		instance = this;
 		KeyBindingRegistry.registerKeyBinding(new OverlayListener(overlayKey, new boolean[] {false}));

@@ -31,7 +31,6 @@ public class MineyConnection implements Runnable{
 			p0.username = Minecraft.getMinecraft().session.username;
 			p0.sessionID = Minecraft.getMinecraft().session.sessionId;
 			PacketManager.sendPacket(p0, out);
-			isLoggedIn = true;
 			int packetId;
 			while((packetId = in.readInt()) != -1){
 				int len = in.readInt();
@@ -42,6 +41,16 @@ public class MineyConnection implements Runnable{
 					System.out.println("Disconnected with message: "+msg);
 					setReason(msg);
 					break;
+				}
+				if(packetId == 2){
+					boolean good = (Boolean)PacketManager.readPacket(packetId, data);
+					if(good){
+						isLoggedIn = true;
+					}else{
+						System.out.println("Login packet returned false for unknown reason");
+						setReason("Unknown login failure");
+						break;
+					}
 				}
 			}
 			in.close();
