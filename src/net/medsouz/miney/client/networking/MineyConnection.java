@@ -36,26 +36,8 @@ public class MineyConnection implements Runnable{
 				int len = in.readInt();
 				byte[] data = new byte[len];
 				in.read(data, 0, len);
-				if(packetId == 0){
-					System.out.println("You're not supposed to have this packet!");
-					setReason("Recieved illegal packet");
-					break
-				}
-				if(packetId == 1){
-					String msg = (String)PacketManager.readPacket(packetId, data);
-					System.out.println("Disconnected with message: "+msg);
-					setReason(msg);
+				if(parsePacket(packetId, data)){//returns false if the connection needs to be killed
 					break;
-				}
-				if(packetId == 2){
-					boolean good = (Boolean)PacketManager.readPacket(packetId, data);
-					if(good){
-						isLoggedIn = true;
-					}else{
-						System.out.println("Login packet returned false for unknown reason");
-						setReason("Unknown login failure");
-						break;
-					}
 				}
 			}
 			in.close();
@@ -78,6 +60,28 @@ public class MineyConnection implements Runnable{
 		}
 		System.out.println("Connection lost");
 		MineyClient.connection = null;
+	}
+	
+	private boolean parsePacket(int packetId, byte[] data){
+		if(packetId == 1){
+			String msg = (String)PacketManager.readPacket(packetId, data);
+			System.out.println("Disconnected with message: "+msg);
+			setReason(msg);
+			return false;
+		}
+		if(packetId == 2){
+			boolean good = (Boolean)PacketManager.readPacket(packetId, data);
+			if(good){
+				isLoggedIn = true;
+				return true;
+			}else{
+				System.out.println("Login packet returned false for unknown reason");
+				setReason("Unknown login failure");
+				return false;
+			}
+		}
+		setReason("Recieved an illegal packet.");
+		return false;
 	}
 	
 	public static String getReason(){
