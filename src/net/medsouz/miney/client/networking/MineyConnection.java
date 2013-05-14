@@ -36,7 +36,7 @@ public class MineyConnection implements Runnable{
 				int len = in.readInt();
 				byte[] data = new byte[len];
 				in.read(data, 0, len);
-				if(parsePacket(packetId, data)){//returns false if the connection needs to be killed
+				if(!parsePacket(packetId, data)){//returns false if the connection needs to be killed
 					break;
 				}
 			}
