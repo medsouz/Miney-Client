@@ -36,6 +36,11 @@ public class MineyConnection implements Runnable{
 				int len = in.readInt();
 				byte[] data = new byte[len];
 				in.read(data, 0, len);
+				if(packetId == 0){
+					System.out.println("You're not supposed to have this packet!");
+					setReason("Recieved illegal packet");
+					break
+				}
 				if(packetId == 1){
 					String msg = (String)PacketManager.readPacket(packetId, data);
 					System.out.println("Disconnected with message: "+msg);
