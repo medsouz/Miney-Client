@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 import net.medsouz.miney.client.MineyClient;
+import net.medsouz.miney.client.data.FriendManager;
+import net.medsouz.miney.common.data.Friend;
 import net.medsouz.miney.common.packet.Packet0PlayerLogin;
 import net.medsouz.miney.common.packet.PacketManager;
 import net.minecraft.client.Minecraft;
@@ -80,6 +83,10 @@ public class MineyConnection implements Runnable{
 				return false;
 			}
 		}
+		if(packetId == 4){
+			List<Friend> fList = (List<Friend>) PacketManager.readPacket(packetId, data);
+			FriendManager.setFriends(fList);
+		}
 		setReason("Recieved an illegal packet.");
 		return false;
 	}
@@ -94,5 +101,9 @@ public class MineyConnection implements Runnable{
 	
 	public boolean isLoggedIn(){
 		return isLoggedIn;
+	}
+
+	public DataOutputStream getOutputStream() {
+		return out;
 	}
 }

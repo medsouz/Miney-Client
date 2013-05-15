@@ -15,6 +15,8 @@ public class PacketManager {
 		packets.add(Packet0PlayerLogin.class);
 		packets.add(Packet1Disconnect.class);
 		packets.add(Packet2ConfirmLogin.class);
+		packets.add(Packet3RequestData.class);
+		packets.add(Packet4FriendList.class);
 	}
 	
 	public static void sendPacket(Packet p, DataOutputStream out) {
