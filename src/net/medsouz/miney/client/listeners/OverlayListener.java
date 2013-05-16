@@ -2,6 +2,8 @@ package net.medsouz.miney.client.listeners;
 
 import java.util.EnumSet;
 
+import org.lwjgl.input.Keyboard;
+
 import net.medsouz.miney.client.gui.GuiScreenMineyOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -22,8 +24,7 @@ public class OverlayListener extends KeyHandler{
 	@Override
 	public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
 		if(tickEnd){
-			//TODO: Bring up overlay GUI
-			if(!(Minecraft.getMinecraft().currentScreen instanceof GuiScreenMineyOverlay)){
+			if(!(Minecraft.getMinecraft().currentScreen instanceof GuiScreenMineyOverlay) && !Keyboard.areRepeatEventsEnabled()){
 				Minecraft.getMinecraft().displayGuiScreen(new GuiScreenMineyOverlay(Minecraft.getMinecraft().currentScreen));
 			}
 		}
