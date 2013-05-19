@@ -24,7 +24,7 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 	
 	public void initGui() {
 		if(MineyClient.isLoggedIn()){
-			setOverlay(currentState = new OverlayMainMenu(this));
+			setOverlay(new OverlayMainMenu(this));
 		}else{
 			setOverlay(new OverlayLoggedOut(this));
 		}
@@ -58,7 +58,7 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 			buttonList.clear();
 			currentState.init();
 		}
-		currentState.drawOverlay(par1, par2, scroll);
+		currentState.drawOverlay(par1, par2, par3, scroll);
 		super.drawScreen(par1, par2, par3);
 		lastFrame = currentTime;
 	}

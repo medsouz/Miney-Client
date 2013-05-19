@@ -12,7 +12,7 @@ public abstract class OverlayState {
 	
 	public abstract void init();
 	
-	public abstract void drawOverlay(int mouseX, int mouseY, int scroll);
+	public abstract void drawOverlay(int mouseX, int mouseY, float par3, int scroll);
 	
 	public abstract void onMouseClick(int par1, int par2, int par3);
 	

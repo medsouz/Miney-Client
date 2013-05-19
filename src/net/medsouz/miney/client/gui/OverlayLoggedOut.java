@@ -33,7 +33,7 @@ public class OverlayLoggedOut extends OverlayState {
 	}
 	
 	@Override
-	public void drawOverlay(int mouseX, int mouseY, int scroll) {
+	public void drawOverlay(int mouseX, int mouseY, float par3, int scroll) {
 		if(MineyClient.isLoggedIn()){
 			overlay.setOverlay(new OverlayMainMenu(overlay));
 			return;
