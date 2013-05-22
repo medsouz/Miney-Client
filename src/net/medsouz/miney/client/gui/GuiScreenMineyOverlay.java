@@ -5,6 +5,7 @@ import java.util.List;
 import org.lwjgl.opengl.GL11;
 
 import net.medsouz.miney.client.MineyClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
@@ -41,7 +42,7 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 			}
 		}
 		if(parent != null){
-			parent.drawScreen(par1, par2, par3);
+			parent.drawScreen(0, 0, par3);
 		}
 		drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
 		drawOverlayBackground(scroll);
@@ -101,6 +102,13 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		if(currentState != null){
 			currentState.actionPerformed(par1GuiButton);
+		}
+	}
+	
+	public void setWorldAndResolution(Minecraft par1Minecraft, int par2, int par3){
+		super.setWorldAndResolution(par1Minecraft, par2, par3);
+		if(parent != null){
+			parent.setWorldAndResolution(par1Minecraft, par2, par3);
 		}
 	}
 }

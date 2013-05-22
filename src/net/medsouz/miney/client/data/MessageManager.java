@@ -27,4 +27,14 @@ public class MessageManager {
 	public static List<Message> getMessages(){
 		return messages;
 	}
+
+	public static Message getLatest() {
+		Message latest;
+		if(messages.size() == 0){
+			latest = new Message("No recent messages", "", "", 0, 0, 0);
+		}else{
+			latest = messages.get(0);
+		}
+		return latest;
+	}
 }

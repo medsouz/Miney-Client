@@ -1,16 +1,21 @@
 package net.medsouz.miney.common.data;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Message {
 	private String topic;
 	private String message;
 	private String sender;
+	private long sentTime;
 	private int messageID;
 	private int parentID;
 	
-	public Message(String top, String msg, String sent, int msgID, int pID){
+	public Message(String top, String msg, String sent, long time, int msgID, int pID){
 		topic = top;
 		message = msg;
 		sender = sent;
+		sentTime = time;
 		messageID = msgID;
 		parentID = pID;
 	}
@@ -33,5 +38,14 @@ public class Message {
 	
 	public int getParentID(){
 		return parentID;
+	}
+	
+	public String getSentTime(){
+		SimpleDateFormat df = new SimpleDateFormat("hh:mm aa dd.MM.yyyy");
+		if(sentTime != 0){
+			return df.format(new Date(sentTime));
+		}else{
+			return "";
+		}
 	}
 }
