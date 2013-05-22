@@ -41,7 +41,7 @@ public class Message {
 	}
 	
 	public String getSentTime(){
-		SimpleDateFormat df = new SimpleDateFormat("hh:mm aa dd.MM.yyyy");
+		SimpleDateFormat df = new SimpleDateFormat("hh:mmaa MM/dd/yy");
 		if(sentTime != 0){
 			return df.format(new Date(sentTime));
 		}else{
