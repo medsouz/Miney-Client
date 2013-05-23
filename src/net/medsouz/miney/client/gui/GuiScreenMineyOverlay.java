@@ -14,6 +14,9 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 	
 	private boolean isScrolling = true;
 	private int scroll = -100;
+	private boolean isStateScrolling = true;
+	private int stateScroll = -100;
+	private boolean isStateDown = true;
 	private OverlayState currentState;
 	private OverlayState nextState;
 	
@@ -29,6 +32,7 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 		}else{
 			setOverlay(new OverlayLoggedOut(this));
 		}
+		isStateDown = true;
 	}
 	
 	private long lastFrame = System.currentTimeMillis();
@@ -53,13 +57,36 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 				isScrolling = false;
 			}
 		}
+		if(isStateScrolling){
+			if(isScrolling){
+				stateScroll = scroll;
+			}else{
+				if(isStateDown){
+					stateScroll += 0.5 * (currentTime - lastFrame);
+					if(stateScroll > 0){
+						stateScroll = 0;
+						isStateScrolling = false;
+					}
+				}else{
+					stateScroll -= 0.5 * (currentTime - lastFrame);
+					if(stateScroll < -150){
+						stateScroll = -150;
+						isStateDown = true;
+						isStateScrolling = false;
+					}
+				}
+			}
+		}
 		drawCenteredString(this.fontRenderer, "Miney, The Social Networking Mod by medsouz | Version "+MineyClient.version, width /2, height - 97 - scroll, 16777215);
-		if(nextState != null && nextState != currentState){
+		if(nextState != null && nextState != currentState && isStateDown){
+			isStateScrolling = true;
 			currentState = nextState;
 			buttonList.clear();
 			currentState.init();
 		}
-		currentState.drawOverlay(par1, par2, par3, scroll);
+		if(currentState != null){
+			currentState.drawOverlay(par1, par2, par3, stateScroll);
+		}
 		super.drawScreen(par1, par2, par3);
 		lastFrame = currentTime;
 	}
@@ -90,6 +117,8 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 	
 	public void setOverlay(OverlayState o){
 		nextState = o;
+		isStateDown = false;
+		isStateScrolling = true;
 	}
 	
 	protected void mouseClicked(int par1, int par2, int par3){
