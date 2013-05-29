@@ -2,13 +2,9 @@ package net.medsouz.miney.common.packet;
 
 public abstract class Packet {
 	
-	public int getID() {
-		return -1;
-	}
+	public abstract int getID();
 
-	public String getName() {
-		return "NaN";
-	}
+	public abstract String getName();
 
 	public abstract byte[] getData();
 

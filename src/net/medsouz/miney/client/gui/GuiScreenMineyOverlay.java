@@ -40,27 +40,23 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 	public void drawScreen(int par1, int par2, float par3){
 		long currentTime = System.currentTimeMillis();
 		if(currentState != null){
-			if(!MineyClient.isLoggedIn() && !(currentState instanceof OverlayLoggedOut)){
+			if(!MineyClient.isLoggedIn() && !(currentState instanceof OverlayLoggedOut) && !(nextState instanceof OverlayLoggedOut)){
 				setOverlay(new OverlayLoggedOut(this));
-				return;
 			}
 		}
 		if(parent != null){
 			parent.drawScreen(0, 0, par3);
 		}
-		drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
-		drawOverlayBackground(scroll);
 		if(isScrolling){
 			scroll += 0.3 * (currentTime - lastFrame);
 			if(scroll > 0){
 				scroll = 0;
 				isScrolling = false;
 			}
+			stateScroll = scroll;
 		}
 		if(isStateScrolling){
-			if(isScrolling){
-				stateScroll = scroll;
-			}else{
+			if(!isScrolling){
 				if(isStateDown){
 					stateScroll += 0.5 * (currentTime - lastFrame);
 					if(stateScroll > 0){
@@ -69,17 +65,22 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 					}
 				}else{
 					stateScroll -= 0.5 * (currentTime - lastFrame);
-					if(stateScroll < -150){
-						stateScroll = -150;
+					if(stateScroll < -100){
+						stateScroll = -100;
 						isStateDown = true;
 						isStateScrolling = false;
 					}
 				}
 			}
 		}
+		drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
+		drawOverlayBackground(scroll);
 		drawCenteredString(this.fontRenderer, "Miney, The Social Networking Mod by medsouz | Version "+MineyClient.version, width /2, height - 97 - scroll, 16777215);
 		if(nextState != null && nextState != currentState && isStateDown){
 			isStateScrolling = true;
+            if(currentState != null){
+            	currentState.deinit();
+            }
 			currentState = nextState;
 			buttonList.clear();
 			currentState.init();
@@ -138,6 +139,18 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 		super.setWorldAndResolution(par1Minecraft, par2, par3);
 		if(parent != null){
 			parent.setWorldAndResolution(par1Minecraft, par2, par3);
+		}
+	}
+	
+	protected void keyTyped(char par1, int par2){
+		if (par2 == 1){
+            this.mc.displayGuiScreen(parent);
+            if(currentState != null){
+            	currentState.deinit();
+            }
+		}
+		if(currentState != null){
+			currentState.keyTyped(par1, par2);
 		}
 	}
 }

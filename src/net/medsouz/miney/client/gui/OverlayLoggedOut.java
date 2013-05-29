@@ -83,4 +83,16 @@ public class OverlayLoggedOut extends OverlayState {
 		}
 	}
 
+	@Override
+	public void keyTyped(char letter, int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deinit() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

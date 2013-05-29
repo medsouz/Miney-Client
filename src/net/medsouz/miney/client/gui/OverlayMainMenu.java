@@ -97,6 +97,19 @@ public class OverlayMainMenu extends OverlayState{
 
 	@Override
 	public void actionPerformed(GuiButton button) {
+		if(button.id == 0){
+			overlay.setOverlay(new OverlayFriendList(overlay));
+		}
+	}
+
+	@Override
+	public void keyTyped(char letter, int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deinit() {
 		// TODO Auto-generated method stub
 		
 	}

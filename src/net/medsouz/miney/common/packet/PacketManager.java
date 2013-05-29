@@ -17,6 +17,7 @@ public class PacketManager {
 		packets.add(Packet2ConfirmLogin.class);
 		packets.add(Packet3RequestData.class);
 		packets.add(Packet4FriendList.class);
+		packets.add(Packet5AddFriend.class);
 	}
 	
 	public static void sendPacket(Packet p, DataOutputStream out) {
@@ -42,5 +43,17 @@ public class PacketManager {
 			err.printStackTrace();
 		}
 		return dat;
+	}
+	
+	public static String getPacketName(int id) {
+		String name = "Unknown";
+		try{
+			Class packClass = packets.get(id);
+			Method m = packClass.getMethod("getName");
+			name = (String) m.invoke(packClass.newInstance());
+		}catch(Exception err){
+			err.printStackTrace();
+		}
+		return name;
 	}
 }
