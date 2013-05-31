@@ -51,10 +51,14 @@ public class OverlayFriendList extends OverlayState{
 				drawPlayer(FriendManager.getFriends().get(x + offset), overlay.width / 2 - 75 + (x * 75), overlay.height - scroll - 60);
 			}
 		}else{
-			overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "I am terribly sorry \u00A7e"+Minecraft.getMinecraft().session.username, (overlay.width - 400)/2 + 245, overlay.height - scroll - 60, 16777215);
-			overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "It appears you have no friends added yet.", (overlay.width - 400)/2 + 245, overlay.height - scroll - 50, 16777215);
-			overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "To add a friend press the \"Add Friend\" button on the left.", (overlay.width - 400)/2 + 245, overlay.height - scroll - 40, 16777215);
-			
+			if(!FriendManager.isWaiting()){
+				overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "I am terribly sorry \u00A7e"+Minecraft.getMinecraft().session.username, (overlay.width - 400)/2 + 245, overlay.height - scroll - 60, 16777215);
+				overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "It appears you have no friends added yet.", (overlay.width - 400)/2 + 245, overlay.height - scroll - 50, 16777215);
+				overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "To add a friend press the \"Add Friend\" button on the left.", (overlay.width - 400)/2 + 245, overlay.height - scroll - 40, 16777215);
+			}
+		}
+		if(FriendManager.isWaiting()){
+			overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "Getting \u00A7e"+Minecraft.getMinecraft().session.username+"\u00A7f's friends...", (overlay.width - 400)/2 + 245, overlay.height - scroll - 50, 16777215);
 		}
 	}
 

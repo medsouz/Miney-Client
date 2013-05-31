@@ -1,14 +1,13 @@
 package net.medsouz.miney.common.packet;
 
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PacketManager {
 	
+	@SuppressWarnings("rawtypes")
 	public static List<Class> packets = new ArrayList<Class>();
 	
 	public static void registerPackets() {
@@ -32,6 +31,7 @@ public class PacketManager {
 		}
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Object readPacket(int id, byte[] data) {
 		Object dat = null;
 		try{
@@ -45,6 +45,7 @@ public class PacketManager {
 		return dat;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static String getPacketName(int id) {
 		String name = "Unknown";
 		try{

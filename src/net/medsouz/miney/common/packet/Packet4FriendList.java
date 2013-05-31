@@ -7,7 +7,6 @@ import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.medsouz.miney.common.data.DataType;
 import net.medsouz.miney.common.data.Friend;
 
 public class Packet4FriendList extends Packet{
@@ -32,6 +31,7 @@ public class Packet4FriendList extends Packet{
 				dos.writeUTF(f.getUsername());
 				dos.writeBoolean(f.isOnline());
 				dos.writeUTF(f.getStatus());
+				dos.writeBoolean(f.isFriendRequest());
 			}
 			dos.close();
 		}catch(Exception e){
@@ -48,7 +48,7 @@ public class Packet4FriendList extends Packet{
 			List<Friend> f = new ArrayList<Friend>();
 			int numFriends = dis.readInt();
 			for(int x = 0; x < numFriends; x++){
-				Friend friend = new Friend(dis.readUTF(), dis.readBoolean(), dis.readUTF());
+				Friend friend = new Friend(dis.readUTF(), dis.readBoolean(), dis.readUTF(), dis.readBoolean());
 				f.add(friend);
 			}
 			dis.close();

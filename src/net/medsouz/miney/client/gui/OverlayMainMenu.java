@@ -64,7 +64,7 @@ public class OverlayMainMenu extends OverlayState{
 		Minecraft.getMinecraft().renderEngine.resetBoundTexture();
 		overlay.drawString(Minecraft.getMinecraft().fontRenderer, "\u00A7e" + Minecraft.getMinecraft().session.username, overlay.width / 2 - 50, overlay.height - scroll - 80, 16777215);
 		overlay.drawString(Minecraft.getMinecraft().fontRenderer, "\u00A7l" + MessageManager.getMessages().size() + "\u00A7f unread messages", overlay.width / 2 - 50, overlay.height - scroll - 70, 16777215);
-		overlay.drawString(Minecraft.getMinecraft().fontRenderer, "\u00A7l" + FriendManager.getFriends().size() + "\u00A7f friends online", overlay.width / 2 - 50, overlay.height - scroll - 60, 16777215);
+		overlay.drawString(Minecraft.getMinecraft().fontRenderer, "\u00A7l" + FriendManager.getNumberOnline() + "\u00A7f "+ ((FriendManager.getNumberOnline() == 1) ? "friend":"friends")+" online", overlay.width / 2 - 50, overlay.height - scroll - 60, 16777215);
 		overlay.drawString(Minecraft.getMinecraft().fontRenderer, "Latest Message:", overlay.width / 2 - 50, overlay.height - scroll - 50, 16777215);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);

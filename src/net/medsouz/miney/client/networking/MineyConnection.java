@@ -84,8 +84,10 @@ public class MineyConnection implements Runnable{
 			}
 		}
 		if(packetId == 4){
+			@SuppressWarnings("unchecked")
 			List<Friend> fList = (List<Friend>) PacketManager.readPacket(packetId, data);
 			FriendManager.setFriends(fList);
+			return true;
 		}
 		setReason("Recieved an illegal packet.");
 		return false;
