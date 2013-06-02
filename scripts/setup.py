@@ -45,6 +45,7 @@ os.chdir("../forge/")
 print "Running forge install script..."
 if(sys.platform.startswith("linux") or sys.platform.startswith("darwin")):
 	os.system("python install.py")
+	os.system("mkdir ../forge/mcp/src/minecraft/net/medsouz/")
 	os.system("mkdir ../forge/mcp/src/minecraft/net/medsouz/miney/")
 	os.system("ln -s ../src/net/medsouz/miney/client ../forge/mcp/src/minecraft/net/medsouz/miney/client")
 	os.system("ln -s ../src/net/medsouz/miney/common ../forge/mcp/src/minecraft/net/medsouz/miney/common")
@@ -56,6 +57,7 @@ elif(sys.platform.startswith("win32")):
 	os.system("mklink /j ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\common ..\\src\\net\\medsouz\\miney\\common")
 	os.system("mklink /j ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\updater ..\\Miney-Updater-master\\src\\net\\medsouz\\miney\\updater")
 print"==================================="
-print "Forge has been installed and Miney's source was linked"
+print "If there is no errors above then Forge has been installed and Miney's source was linked"
 print "You can now use the forge folder in Miney like any other Forge workspace."
 print "The code is linked to the repository so that it is there whenever you need to commit."
+print"==================================="
