@@ -46,10 +46,10 @@ print "Running forge install script..."
 if(sys.platform.startswith("linux") or sys.platform.startswith("darwin")):
 	os.system("python install.py")
 	os.system("mkdir ../forge/mcp/src/minecraft/net/medsouz/")
-	os.system("mkdir ../forge/mcp/src/minecraft/net/medsouz/miney/")
-	os.system("ln -s ../src/net/medsouz/miney/client ../forge/mcp/src/minecraft/net/medsouz/miney/client")
-	os.system("ln -s ../src/net/medsouz/miney/common ../forge/mcp/src/minecraft/net/medsouz/miney/common")
-	os.system("ln -s ../Miney-Updater-master/src/net/medsouz/miney/updater ../forge/mcp/src/minecraft/net/medsouz/miney/updater")
+	os.system("mkdir ../../../../../../../forge/mcp/src/minecraft/net/medsouz/miney/")
+	os.system("ln -s ../../../../../../../src/net/medsouz/miney/client ../forge/mcp/src/minecraft/net/medsouz/miney/client")
+	os.system("ln -s ../../../../../../../src/net/medsouz/miney/common ../forge/mcp/src/minecraft/net/medsouz/miney/common")
+	os.system("ln -s ../../../../../../../Miney-Updater-master/src/net/medsouz/miney/updater ../forge/mcp/src/minecraft/net/medsouz/miney/updater")
 elif(sys.platform.startswith("win32")):
 	os.system("install.cmd")
 	os.system("mkdir ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\")
