@@ -1,14 +1,9 @@
 package net.medsouz.miney.client.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import net.medsouz.miney.client.data.FriendManager;
 import net.medsouz.miney.common.data.Friend;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.ImageBufferDownload;
 
 public class OverlayFriendList extends OverlayState{
 	GuiButton next = new GuiButton(0, 0, 0, 35, 20, "->");
@@ -48,7 +43,7 @@ public class OverlayFriendList extends OverlayState{
 		if(!(FriendManager.getFriends().size() == 0)){
 			for(int x = 0; x < 4; x++){
 				if(x + offset >= FriendManager.getFriends().size()) break;
-				drawPlayer(FriendManager.getFriends().get(x + offset), overlay.width / 2 - 75 + (x * 75), overlay.height - scroll - 60);
+				drawFriend(FriendManager.getFriends().get(x + offset), overlay.width / 2 - 75 + (x * 75), overlay.height - scroll - 60);
 			}
 		}else{
 			if(!FriendManager.isWaiting()){
@@ -86,35 +81,6 @@ public class OverlayFriendList extends OverlayState{
 			overlay.setOverlay(new OverlayAddFriend(overlay));
 		}
 	}
-	
-	private void drawPlayer(Friend user, int x, int y){
-		String skinurl = "http://s3.amazonaws.com/MinecraftSkins/"+user.getUsername()+".png";
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		ModelBiped biped = new ModelBiped();
-		biped.bipedCloak.isHidden = true;
-		biped.bipedEars.isHidden = true;
-		GL11.glPushMatrix();
-		GL11.glTranslatef(x, y, 100);
-		GL11.glScalef(0.5f, 0.5f, 0.5f);
-		GL11.glRotatef(-20, 1, 0, 0);
-		GL11.glRotatef(205, 0, 1, 0);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glEnable(32826);
-		Minecraft.getMinecraft().renderEngine.obtainImageData(skinurl, new ImageBufferDownload());
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D,(Minecraft.getMinecraft().renderEngine.getTextureForDownloadableImage(skinurl, "/mob/char.png")));
-		for (int i = 0; i < biped.boxList.size(); i++) {
-			((ModelRenderer) (biped.boxList.get(i))).render(5);
-		}
-		GL11.glDisable(32826);
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		GL11.glPopMatrix();
-		Minecraft.getMinecraft().renderEngine.resetBoundTexture();
-		overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "\u00A7e"+user.getUsername(), x, y + 30, 16777215);
-		overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, (user.isOnline())?"Online":"Offline", x, y + 40, 16777215);
-		overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, user.getStatus(), x, y + 50, 16777215);
-	}
 
 	@Override
 	public void keyTyped(char letter, int id) {
@@ -126,6 +92,13 @@ public class OverlayFriendList extends OverlayState{
 	public void deinit() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void drawFriend(Friend user, int x, int y){
+		drawPlayer(user.getUsername(), x, y, 1f);
+		overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, "\u00A7e"+user.getUsername(), x, y + 30, 16777215);
+		overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, (user.isOnline())?"Online":"Offline", x, y + 40, 16777215);
+		overlay.drawCenteredString(Minecraft.getMinecraft().fontRenderer, user.getStatus(), x, y + 50, 16777215);
 	}
 
 }

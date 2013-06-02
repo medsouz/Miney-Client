@@ -5,14 +5,15 @@ public class Friend {
 	private boolean online;
 	private String status;
 	private boolean request;
+	private long lastOnline;
 	
-	public Friend(String name, boolean on, String stat, boolean req){
+	public Friend(String name, boolean on, String stat, boolean req, long lastOnline){
 		username = name;
 		online = on;
 		status = stat;
 		request = req;
 		if(req){
-			status = "Request Pending";
+			status = "Pending...";
 		}
 	}
 	
@@ -30,5 +31,9 @@ public class Friend {
 	
 	public boolean isFriendRequest(){
 		return request;
+	}
+	
+	public long getLastOnline(){
+		return lastOnline;
 	}
 }

@@ -32,6 +32,7 @@ public class OverlayAddFriend extends OverlayState{
 	public void drawOverlay(int mouseX, int mouseY, float par3, int scroll) {
 		overlay.getButtonList().get(0).xPosition = (overlay.width - 400) / 2 + 10;
 		overlay.getButtonList().get(0).yPosition = overlay.height - 55 - scroll;
+		overlay.getButtonList().get(0).enabled = friendName.getText().length() >= 2;
 		overlay.getButtonList().get(1).xPosition = (overlay.width - 400) / 2 + 10;
 		overlay.getButtonList().get(1).yPosition = overlay.height - 30 - scroll;
 		overlay.getButtonList().get(2).xPosition = (overlay.width - 400) / 2 + 10;

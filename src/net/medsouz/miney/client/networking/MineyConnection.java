@@ -2,15 +2,15 @@ package net.medsouz.miney.client.networking;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.List;
 
 import net.medsouz.miney.client.MineyClient;
 import net.medsouz.miney.client.data.FriendManager;
+import net.medsouz.miney.client.data.MessageManager;
 import net.medsouz.miney.common.data.Friend;
+import net.medsouz.miney.common.data.Message;
 import net.medsouz.miney.common.packet.Packet0PlayerLogin;
 import net.medsouz.miney.common.packet.PacketManager;
 import net.minecraft.client.Minecraft;
@@ -76,6 +76,8 @@ public class MineyConnection implements Runnable{
 			boolean good = (Boolean)PacketManager.readPacket(packetId, data);
 			if(good){
 				isLoggedIn = true;
+				Thread tdu = new Thread(new ThreadDataUpdater());
+				tdu.start();
 				return true;
 			}else{
 				System.out.println("Login packet returned false for unknown reason");
@@ -87,6 +89,12 @@ public class MineyConnection implements Runnable{
 			@SuppressWarnings("unchecked")
 			List<Friend> fList = (List<Friend>) PacketManager.readPacket(packetId, data);
 			FriendManager.setFriends(fList);
+			return true;
+		}
+		if(packetId == 6){
+			@SuppressWarnings("unchecked")
+			List<Message> mList = (List<Message>) PacketManager.readPacket(packetId, data);
+			MessageManager.setMessages(mList);
 			return true;
 		}
 		setReason("Recieved an illegal packet.");

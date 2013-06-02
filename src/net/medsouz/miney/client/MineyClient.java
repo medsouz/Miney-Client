@@ -7,14 +7,13 @@ import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import net.medsouz.miney.client.listeners.OverlayListener;
 import net.medsouz.miney.client.networking.MineyConnection;
 import net.medsouz.miney.common.packet.PacketManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 
 public class MineyClient{
 
 	public static MineyClient instance;
 	public static MineyConnection connection;
-	public static String version = "v0.1";
+	public static String version = "v0.3";
 	
 	public KeyBinding[] overlayKey = {new KeyBinding("Miney Overlay", Keyboard.KEY_P)};
 	

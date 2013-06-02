@@ -10,14 +10,16 @@ public class Message {
 	private long sentTime;
 	private int messageID;
 	private int parentID;
+	private boolean isRead;
 	
-	public Message(String top, String msg, String sent, long time, int msgID, int pID){
+	public Message(String top, String msg, String sent, long time, int msgID, int pID, boolean read){
 		topic = top;
 		message = msg;
 		sender = sent;
 		sentTime = time;
 		messageID = msgID;
 		parentID = pID;
+		isRead = read;
 	}
 	
 	public String getTopic(){
@@ -47,5 +49,13 @@ public class Message {
 		}else{
 			return "";
 		}
+	}
+	
+	public long getSentTimeLong(){
+		return sentTime;
+	}
+	
+	public boolean isRead(){
+		return isRead;
 	}
 }

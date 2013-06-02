@@ -108,10 +108,12 @@ public class GuiScreenMineyOverlay extends GuiScreen{
         tessellator.draw();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void addToButtonList(GuiButton b){
 		buttonList.add(b);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<GuiButton> getButtonList(){
 		return buttonList;
 	}

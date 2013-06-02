@@ -4,21 +4,17 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
-import net.medsouz.miney.common.data.Friend;
+public class Packet7MessageRead extends Packet{
 
-public class Packet4FriendList extends Packet{
-	
-	public List<Friend> friends = new ArrayList<Friend>();
+	public int messageID;
 	
 	public int getID() {
-		return 4;
+		return 7;
 	}
 
 	public String getName() {
-		return "Friend List";
+		return "Message Read";
 	}
 	
 	@Override
@@ -26,14 +22,7 @@ public class Packet4FriendList extends Packet{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 		try{
-			dos.writeInt(friends.size());
-			for(Friend f : friends){
-				dos.writeUTF(f.getUsername());
-				dos.writeBoolean(f.isOnline());
-				dos.writeUTF(f.getStatus());
-				dos.writeBoolean(f.isFriendRequest());
-				dos.writeLong(f.getLastOnline());
-			}
+			dos.writeInt(messageID);
 			dos.close();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -46,14 +35,9 @@ public class Packet4FriendList extends Packet{
 		try{
 			ByteArrayInputStream bais = new ByteArrayInputStream(data);
 			DataInputStream dis = new DataInputStream(bais);
-			List<Friend> f = new ArrayList<Friend>();
-			int numFriends = dis.readInt();
-			for(int x = 0; x < numFriends; x++){
-				Friend friend = new Friend(dis.readUTF(), dis.readBoolean(), dis.readUTF(), dis.readBoolean(), dis.readLong());
-				f.add(friend);
-			}
+			int id = dis.readInt();
 			dis.close();
-			return f;
+			return id;
 		}catch(Exception err){
 			err.printStackTrace();
 		}

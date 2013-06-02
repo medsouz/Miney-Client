@@ -11,9 +11,12 @@ import net.medsouz.miney.common.packet.PacketManager;
 
 public class MessageManager {
 	private static List<Message> messages = new ArrayList<Message>();
+	private static int unread = 0;
+	private static boolean waiting = true;
 	
-	public static void updateFriends(){
+	public static void updateMessages(){
 		if(MineyClient.isLoggedIn()){
+			waiting = true;
 			Packet3RequestData p3 = new Packet3RequestData();
 			p3.dataType = DataType.messages;
 			PacketManager.sendPacket(p3, MineyClient.connection.getOutputStream());
@@ -22,6 +25,13 @@ public class MessageManager {
 	
 	public static void setMessages(List<Message> f){
 		messages = f;
+		unread = 0;
+		for(Message m : messages){
+			if(!m.isRead()){
+				unread++;
+			}
+		}
+		waiting = false;
 	}
 	
 	public static List<Message> getMessages(){
@@ -31,10 +41,18 @@ public class MessageManager {
 	public static Message getLatest() {
 		Message latest;
 		if(messages.size() == 0){
-			latest = new Message("No recent messages", "", "", 0, 0, 0);
+			latest = new Message("No recent messages", "", "", 0, -1, 0, true);
 		}else{
 			latest = messages.get(0);
 		}
 		return latest;
+	}
+
+	public static boolean isWaiting() {
+		return waiting;
+	}
+	
+	public static int getUnreadMessages(){
+		return unread;
 	}
 }
