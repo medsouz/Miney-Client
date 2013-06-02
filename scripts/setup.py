@@ -44,7 +44,7 @@ print "Changing directory to forge\'s directory..."
 os.chdir("../forge/")
 print "Running forge install script..."
 if(sys.platform.startswith("linux") or sys.platform.startswith("darwin")):
-	os.system("install.sh")
+	os.system("python install.py")
 	os.system("mkdir ../forge/mcp/src/minecraft/net/medsouz/miney/")
 	os.system("ln -s ../src/net/medsouz/miney/client ../forge/mcp/src/minecraft/net/medsouz/miney/client")
 	os.system("ln -s ../src/net/medsouz/miney/common ../forge/mcp/src/minecraft/net/medsouz/miney/common")
