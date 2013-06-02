@@ -29,8 +29,11 @@ Lets face it, if I had the client closed source and people wanted to do somethin
 
 The code is designed to be launched by [Miney-Updater](https://github.com/medsouz/Miney-Updater) instead of Forge Modloader. Doing this allows the mod to automatically update itself whenever Minecraft is restarted. To run the code you need both Miney-Updater and Miney-Client's source in the Minecraft Forge MCP src folder.
 
-> You should totally add <insert idea here\>!
+> You should totally add -insert-idea-here-!
 
 I'd love to hear your ideas! Feel free to join [#Miney](http://webchat.esper.net/?channels=Miney) on the [Esper IRC network](http://esper.net/) and let me know your idea! :smile:
 
+Build Status
+------------
+I am running a [Gitlab-CI](https://github.com/gitlabhq/gitlab-ci) instance that compiles the code whenever a commit is made. You can click the badge for more information.
 [![build status](http://ci.medsouz.net/projects/1/status.png?ref=master)](http://ci.medsouz.net/projects/1?ref=master)
