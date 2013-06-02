@@ -8,15 +8,25 @@ print"|                          /___/  |"
 print"==================================="
 print "Cleaning the repository..."
 if(os.path.exists("../forge/")):
-	print "Removing Forge"
-	if(os.path.exists("../forge/mcp/src/minecraft/net/medsouz/miney/client")):
-		os.rmdir("../forge/mcp/src/minecraft/net/medsouz/miney/client")
-	if(os.path.exists("../forge/mcp/src/minecraft/net/medsouz/miney/common")):
-		os.rmdir("../forge/mcp/src/minecraft/net/medsouz/miney/common")
-	if(os.path.exists("../forge/mcp/src/minecraft/net/medsouz/miney/updater")):
-		os.rmdir("../forge/mcp/src/minecraft/net/medsouz/miney/updater")
-	shutil.rmtree("../forge/")
+        print "Removing Forge"
+        if(os.path.exists("../forge/mcp/src/minecraft/net/medsouz/miney/client")):
+                if(os.path.islink("../forge/mcp/src/minecraft/net/medsouz/miney/client")):
+                        os.unlink("../forge/mcp/src/minecraft/net/medsouz/miney/client")
+                else:
+                        os.rmdir("../forge/mcp/src/minecraft/net/medsouz/miney/client")
+        if(os.path.exists("../forge/mcp/src/minecraft/net/medsouz/miney/common")):
+                if(os.path.islink("../forge/mcp/src/minecraft/net/medsouz/miney/common")):
+                        os.unlink("../forge/mcp/src/minecraft/net/medsouz/miney/common")
+                else:
+                        os.rmdir("../forge/mcp/src/minecraft/net/medsouz/miney/common")
+        if(os.path.exists("../forge/mcp/src/minecraft/net/medsouz/miney/common")):
+                if(os.path.islink("../forge/mcp/src/minecraft/net/medsouz/miney/updater")):
+                        os.rmlink("../forge/mcp/src/minecraft/net/medsouz/miney/updater")
+                else:
+                        os.rmdir("../forge/mcp/src/minecraft/net/medsouz/miney/updater")
+        shutil.rmtree("../forge/")
 else:
+
 	print "Forge not found"
 if(os.path.exists("../Miney-Updater-master/")):
 	print "Removing Miney-Updater"
