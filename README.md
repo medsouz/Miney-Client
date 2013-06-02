@@ -27,7 +27,7 @@ Lets face it, if I had the client closed source and people wanted to do somethin
 
 > How do I run the code?
 
-The code is designed to be launched by [Miney-Updater](https://github.com/medsouz/Miney-Updater) instead of Forge Modloader. Doing this allows the mod to automatically update itself whenever Minecraft is restarted. To run the code you need both Miney-Updater and Miney-Client's source in the Minecraft Forge MCP src folder.
+There is a python file in the scripts folder that will set up a Forge workspace for you. It automatically downloads the latest recommended version of Forge and [Miney-Updater](https://github.com/medsouz/Miney-Updater). It then symlinks all the code from Miney-Client and Miney-Updater into the Minecraft source folder so that you can easily commit your changes to the code.
 
 > You should totally add -insert-idea-here-!
 
