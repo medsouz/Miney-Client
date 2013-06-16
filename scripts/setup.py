@@ -1,4 +1,13 @@
 import urllib, zipfile, os, sys, shutil
+
+def runNative(cmd):
+	out = os.system(cmd)
+	if(out != 0):
+		print("===================================")
+		print("Miney setup failed with error code "+str(out))
+		print("===================================")
+		sys.exit(1)
+
 print"==================================="
 print"|   __  ___   _                   |"
 print"|  /  |/  /  (_)  ___  ___   __ __|"
@@ -53,21 +62,23 @@ print"==================================="
 print "Changing directory to forge\'s directory..."
 os.chdir("../forge/")
 print "Running forge install script..."
+sys.stdout.flush()
 if(sys.platform.startswith("linux") or sys.platform.startswith("darwin")):
-	os.system("python install.py")
-	os.system("mkdir ../forge/mcp/src/minecraft/net/medsouz/")
-	os.system("mkdir ../forge/mcp/src/minecraft/net/medsouz/miney/")
-	os.system("ln -s ../../../../../../../src/net/medsouz/miney/client ../forge/mcp/src/minecraft/net/medsouz/miney/client")
-	os.system("ln -s ../../../../../../../src/net/medsouz/miney/common ../forge/mcp/src/minecraft/net/medsouz/miney/common")
-	os.system("ln -s ../../../../../../../Miney-Updater-master/src/net/medsouz/miney/updater ../forge/mcp/src/minecraft/net/medsouz/miney/updater")
+	runNative("python install.py")
+	runNative("mkdir ../forge/mcp/src/minecraft/net/medsouz/")
+	runNative("mkdir ../forge/mcp/src/minecraft/net/medsouz/miney/")
+	runNative("ln -s ../../../../../../../src/net/medsouz/miney/client ../forge/mcp/src/minecraft/net/medsouz/miney/client")
+	runNative("ln -s ../../../../../../../src/net/medsouz/miney/common ../forge/mcp/src/minecraft/net/medsouz/miney/common")
+	runNative("ln -s ../../../../../../../Miney-Updater-master/src/net/medsouz/miney/updater ../forge/mcp/src/minecraft/net/medsouz/miney/updater")
 elif(sys.platform.startswith("win32")):
-	os.system("install.cmd")
-	os.system("mkdir ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\")
-	os.system("mklink /j ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\client ..\\src\\net\\medsouz\\miney\\client")
-	os.system("mklink /j ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\common ..\\src\\net\\medsouz\\miney\\common")
-	os.system("mklink /j ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\updater ..\\Miney-Updater-master\\src\\net\\medsouz\\miney\\updater")
+	runNative("install.cmd")
+	runNative("mkdir ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\")
+	runNative("mklink /j ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\client ..\\src\\net\\medsouz\\miney\\client")
+	runNative("mklink /j ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\common ..\\src\\net\\medsouz\\miney\\common")
+	runNative("mklink /j ..\\forge\\mcp\\src\\minecraft\\net\\medsouz\\miney\\updater ..\\Miney-Updater-master\\src\\net\\medsouz\\miney\\updater")
 print"==================================="
-print "If there is no errors above then Forge has been installed and Miney's source was linked"
-print "You can now use the forge folder in Miney like any other Forge workspace."
-print "The code is linked to the repository so that it is there whenever you need to commit."
+print "Miney-Client has been set up successfully!"
+print "You can now use the forge folder to work on Miney"
+print "Thank you for your contributions!"
+print "    <3 medsouz"
 print"==================================="
