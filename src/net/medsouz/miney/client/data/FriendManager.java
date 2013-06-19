@@ -19,7 +19,9 @@ public class FriendManager {
 			waiting = true;
 			Packet3RequestData p3 = new Packet3RequestData();
 			p3.dataType = DataType.friend;
-			PacketManager.sendPacket(p3, MineyClient.connection.getOutputStream());
+			if(MineyClient.connection != null){
+				PacketManager.sendPacket(p3, MineyClient.connection.getOutputStream());
+			}
 		}
 	}
 	
