@@ -23,14 +23,16 @@ public class PacketManager {
 	}
 	
 	public static void sendPacket(Packet p, DataOutputStream out) {
-		try{
-			out.writeInt(p.getID());
-			byte[] data = p.getData();
-			out.writeInt(data.length);
- 			out.write(data, 0, data.length);
-			out.flush();
-		}catch(Exception e){
-			e.printStackTrace();
+		if(out != null){
+			try{
+				out.writeInt(p.getID());
+				byte[] data = p.getData();
+				out.writeInt(data.length);
+	 			out.write(data, 0, data.length);
+				out.flush();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 	}
 	
