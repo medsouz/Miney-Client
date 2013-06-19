@@ -155,4 +155,10 @@ public class GuiScreenMineyOverlay extends GuiScreen{
 			currentState.keyTyped(par1, par2);
 		}
 	}
+	
+	public void updateScreen() {
+        if(currentState != null){
+        	currentState.update();
+        }
+	}
 }

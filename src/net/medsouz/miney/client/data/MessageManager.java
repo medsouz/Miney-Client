@@ -7,6 +7,7 @@ import net.medsouz.miney.client.MineyClient;
 import net.medsouz.miney.common.data.DataType;
 import net.medsouz.miney.common.data.Message;
 import net.medsouz.miney.common.packet.Packet3RequestData;
+import net.medsouz.miney.common.packet.Packet8SendMessage;
 import net.medsouz.miney.common.packet.PacketManager;
 
 public class MessageManager {
@@ -54,5 +55,14 @@ public class MessageManager {
 	
 	public static int getUnreadMessages(){
 		return unread;
+	}
+	
+	public static void sendMessage(String targ, String top, String msg, int pId){
+		Packet8SendMessage p8 = new Packet8SendMessage();
+		p8.target = targ;
+		p8.topic = top;
+		p8.message = msg;
+		p8.parentId = pId;
+		PacketManager.sendPacket(p8, MineyClient.connection.getOutputStream());
 	}
 }

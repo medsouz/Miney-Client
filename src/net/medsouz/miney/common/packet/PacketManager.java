@@ -19,6 +19,7 @@ public class PacketManager {
 		packets.add(Packet5AddFriend.class);
 		packets.add(Packet6Messages.class);
 		packets.add(Packet7MessageRead.class);
+		packets.add(Packet8SendMessage.class);
 	}
 	
 	public static void sendPacket(Packet p, DataOutputStream out) {

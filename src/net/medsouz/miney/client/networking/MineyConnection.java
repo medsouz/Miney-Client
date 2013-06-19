@@ -26,7 +26,7 @@ public class MineyConnection implements Runnable{
 	@Override
 	public void run() {
 		try {
-			socket = new Socket("localhost", 90);
+			socket = new Socket("localhost", 9999);
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
 			//Compose login packet

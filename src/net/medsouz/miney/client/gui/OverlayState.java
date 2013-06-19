@@ -21,15 +21,17 @@ public abstract class OverlayState {
 	
 	public abstract void init();
 	
-	public abstract void deinit();
+	public void deinit(){}
 	
 	public abstract void drawOverlay(int mouseX, int mouseY, float par3, int scroll);
 	
-	public abstract void onMouseClick(int par1, int par2, int par3);
+	public void onMouseClick(int par1, int par2, int par3){}
 	
-	public abstract void actionPerformed(GuiButton button);
+	public void actionPerformed(GuiButton button){}
 	
-	public abstract void keyTyped(char letter, int id);
+	public void keyTyped(char letter, int id){}
+	
+	public void update(){}
 	
 	public void drawPlayer(String user, int x, int y, float scale){
 		String skinurl = "http://s3.amazonaws.com/MinecraftSkins/"+user+".png";

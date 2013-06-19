@@ -43,12 +43,6 @@ public class OverlayMainMenu extends OverlayState{
 	}
 
 	@Override
-	public void onMouseClick(int par1, int par2, int par3) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void actionPerformed(GuiButton button) {
 		if(button.id == 0){
 			overlay.setOverlay(new OverlayFriendList(overlay));
@@ -56,18 +50,6 @@ public class OverlayMainMenu extends OverlayState{
 		if(button.id == 1){
 			overlay.setOverlay(new OverlayMessages(overlay));
 		}
-	}
-
-	@Override
-	public void keyTyped(char letter, int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deinit() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

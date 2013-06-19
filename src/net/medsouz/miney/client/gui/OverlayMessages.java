@@ -25,11 +25,6 @@ public class OverlayMessages extends OverlayState{
 	}
 
 	@Override
-	public void deinit() {
-		
-	}
-
-	@Override
 	public void drawOverlay(int mouseX, int mouseY, float par3, int scroll) {
 		overlay.getButtonList().get(0).xPosition = (overlay.width - 400) / 2 + 10;
 		overlay.getButtonList().get(0).yPosition = overlay.height - 30 - scroll;
@@ -59,11 +54,6 @@ public class OverlayMessages extends OverlayState{
 	}
 
 	@Override
-	public void onMouseClick(int par1, int par2, int par3) {
-		
-	}
-
-	@Override
 	public void actionPerformed(GuiButton button) {
 		if(button.id == 0){
 			overlay.setOverlay(new OverlayMainMenu(overlay));
@@ -74,10 +64,5 @@ public class OverlayMessages extends OverlayState{
 		if(button.id == 2){
 			offset = offset - 4;
 		}
-	}
-
-	@Override
-	public void keyTyped(char letter, int id) {
-		
 	}
 }

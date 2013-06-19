@@ -75,5 +75,9 @@ public class OverlayAddFriend extends OverlayState{
 	public void deinit() {
 		Keyboard.enableRepeatEvents(false);
 	}
+	
+	public void update(){
+		friendName.updateCursorCounter();
+	}
 
 }

@@ -81,18 +81,6 @@ public class OverlayFriendList extends OverlayState{
 			overlay.setOverlay(new OverlayAddFriend(overlay));
 		}
 	}
-
-	@Override
-	public void keyTyped(char letter, int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deinit() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void drawFriend(Friend user, int x, int y){
 		drawPlayer(user.getUsername(), x, y, 1f);
